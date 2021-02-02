@@ -52,7 +52,7 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 		return
 
 	case http.MethodDelete:
-
+		usersDeleteOne(w, r, id)
 		return
 
 	default:

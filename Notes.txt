@@ -267,3 +267,19 @@ Responses:
     iv. 400 bad request
 
 
+------------------------------------------------
+
+Deleting an Item (DELETE)
+
+
+Method - DELETE
+Target - An item 
+Request - No content 
+Result - Resource is removed.
+
+Responses:
+    i. 200 OK (sometimes 204 no content)
+    ii. 404 not found
+    iii. 500 internal server error
+
+

@@ -86,6 +86,7 @@ func usersPutOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
 
 	postBodyResponse(w, http.StatusOK, jsonResponse{"user": u})
 }
+
 func usersPatchOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
 	// Get existing record
 	u, err := user.One(id)
@@ -135,4 +136,21 @@ func usersGetOne(w http.ResponseWriter, _ *http.Request, id bson.ObjectId) {
 	}
 
 	postBodyResponse(w, http.StatusOK, jsonResponse{"user": u})
+}
+
+func usersDeleteOne(w http.ResponseWriter, _ *http.Request, id bson.ObjectId) {
+	// Get existing record
+	err := user.Delete(id)
+
+	if err != nil {
+		if err == storm.ErrNotFound {
+			postError(w, http.StatusNotFound)
+			return
+		}
+
+		postError(w, http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
 }
