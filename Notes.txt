@@ -249,3 +249,21 @@ Responses:
 
 
 
+
+------------------------------------------------
+
+Updating an Item (PATCH)
+
+
+Method - PATCH
+Target - An item 
+Request - Partial item content 
+Result - Resource is updated based on fields existing in the request.
+
+Responses:
+    i. 200 OK + updated resource 
+    ii. 404 not found
+    iii. 500 internal server error
+    iv. 400 bad request
+
+

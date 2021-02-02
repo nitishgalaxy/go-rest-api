@@ -48,7 +48,7 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 		return
 
 	case http.MethodPatch:
-
+		usersPatchOne(w, r, id)
 		return
 
 	case http.MethodDelete:
