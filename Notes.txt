@@ -1,0 +1,8 @@
+Why Go:
+
+1. Multi-threaded by default 
+2. Strongly typed, compiled - few errors and faster development time 
+3. Built-in JSON support 
+4. Extensive native testing framework
+5. Self-contained, portable, cross-platform 
+6. Simple and easy to understand 
