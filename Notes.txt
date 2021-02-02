@@ -168,3 +168,30 @@ http.HandleFunc("/users/", handlers.UsersRouter)
 Note: Route ending with '/' is discouraged in REST API as that creates ambiguity.
 
 
+
+------------------------------------------------
+
+Retreiving a List (Get Request)
+
+Responses:
+    1. 200 OK + A list of items in collection
+    2. 404 not found 
+    3. 500 internal server error
+
+
+Response Content:
+
+Body:
+
+[
+    {
+        "name":"Tom",
+        "role":"Manager"
+    },
+    {
+        "name":"Max",
+        "role":"Lead"
+    }
+]
+
+
