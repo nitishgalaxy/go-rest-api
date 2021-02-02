@@ -136,3 +136,35 @@ ID   bson.ObjectId `json:"id" storm:"id"`
     -   We can use multiple Tags
     -   Tag for storm was optional here but its good to explicitly mention the Primary Key of DB. 
 
+
+
+-----------------------------------------------------
+
+
+go mod init github.com/nitishgalaxy/go-rest-api 
+
+go get github.com/asdine/storm
+
+go get gopkg.in/mgo.v2/bson
+
+go run *.go
+
+
+
+
+Note:-
+
+http://localhost:8080/users   - Works
+http://localhost:8080/users/  - gives Asset not found
+
+
+Solution:
+
+http.HandleFunc("/users", handlers.UsersRouter)
+http.HandleFunc("/users/", handlers.UsersRouter)
+
+
+
+Note: Route ending with '/' is discouraged in REST API as that creates ambiguity.
+
+
