@@ -231,5 +231,21 @@ Responses:
 
 
  
+------------------------------------------------
+
+Replacing an Item (PUT)
+
+
+Method - PUT
+Target - An item 
+Request - Full item content 
+Result - Resource is replaced with the request body
+
+Responses:
+    i. 200 OK + updated resource 
+    ii. 404 not found
+    iii. 500 internal server error
+    iv. 400 bad request
+
 
 

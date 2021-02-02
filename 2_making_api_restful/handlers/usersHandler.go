@@ -64,6 +64,29 @@ func usersPostOne(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
+func usersPutOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
+	u := new(user.User)
+	err := bodyToUser(r, u)
+	if err != nil {
+		postError(w, http.StatusBadRequest)
+		return
+	}
+
+	u.ID = id
+	err = u.Save()
+
+	if err != nil {
+		if err == user.ErrRecordInvalid {
+			postError(w, http.StatusBadRequest)
+		} else {
+			postError(w, http.StatusInternalServerError)
+		}
+		return
+	}
+
+	postBodyResponse(w, http.StatusOK, jsonResponse{"user": u})
+}
+
 func usersGetOne(w http.ResponseWriter, _ *http.Request, id bson.ObjectId) {
 	u, err := user.One(id)
 
