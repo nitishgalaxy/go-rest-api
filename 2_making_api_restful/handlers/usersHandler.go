@@ -37,6 +37,11 @@ func usersGetAll(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if r.Method == http.MethodHead {
+		postBodyResponse(w, http.StatusOK, jsonResponse{}) // Send empty content
+		return
+	}
+
 	postBodyResponse(w, http.StatusOK, jsonResponse{"users": users})
 }
 
@@ -122,7 +127,7 @@ func usersPatchOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
 	postBodyResponse(w, http.StatusOK, jsonResponse{"user": u})
 }
 
-func usersGetOne(w http.ResponseWriter, _ *http.Request, id bson.ObjectId) {
+func usersGetOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
 	u, err := user.One(id)
 
 	if err != nil {
@@ -132,6 +137,11 @@ func usersGetOne(w http.ResponseWriter, _ *http.Request, id bson.ObjectId) {
 		}
 
 		postError(w, http.StatusInternalServerError)
+		return
+	}
+
+	if r.Method == http.MethodHead {
+		postBodyResponse(w, http.StatusOK, jsonResponse{}) // Send empty content
 		return
 	}
 

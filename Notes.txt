@@ -283,3 +283,29 @@ Responses:
     iii. 500 internal server error
 
 
+
+------------------------------------------------
+
+Retreiving headers (HEAD)
+
+- Optional to implement 
+- Similar Fuctionality as GET, but without sending BODY.
+
+
+
+Method - HEAD
+Target - any resource
+Request - No content 
+Result - No effect
+
+Responses:
+    i. 200 OK + headers from GET Method 
+    ii. 404 not found
+    iii. 500 internal server error
+
+
+- Instead of downloading a bulky response, if you only want to confirm if a resource exists,
+  you can use a HEAD request.
+
+- HEAD saves you time and bandwidth
+

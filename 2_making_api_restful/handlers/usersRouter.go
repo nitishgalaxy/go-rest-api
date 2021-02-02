@@ -23,6 +23,10 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 			usersPostOne(w, r)
 			return
 
+		case http.MethodHead:
+			usersGetAll(w, r)
+			return
+
 		default:
 			postError(w, http.StatusMethodNotAllowed)
 			return
@@ -40,6 +44,10 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case http.MethodGet:
+		usersGetOne(w, r, id)
+		return
+
+	case http.MethodHead:
 		usersGetOne(w, r, id)
 		return
 
