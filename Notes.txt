@@ -6,3 +6,133 @@ Why Go:
 4. Extensive native testing framework
 5. Self-contained, portable, cross-platform 
 6. Simple and easy to understand 
+
+
+
+API Outline
+----------------
+
+1. Resource - A list of users 
+2. List item data - name, role, id 
+3. Fuctionality - Create, Read, Update, Delete [CRUD]
+4. Endpoints:
+        i. Collections:  /users 
+        ii. Item:  /users/{id}
+5. Data format - JSON 
+
+
+
+
+1. Create an Item:
+-----------------
+
+Method - POST
+Target - Collection
+Endpoint - POST /users
+Request Content - full item data 
+Successful response - 201 created + location 
+
+
+2. Access the collection:
+-----------------
+
+Method - GET
+Target - Collection
+Endpoint - GET /users
+Request Content - none
+Successful response - 200 OK + list of users 
+
+
+3. Access an item:
+-----------------
+
+Method - GET
+Target - Item
+Endpoint - GET /users/{id}
+Request Content - none
+Successful response - 200 OK + user data 
+Missing resource - 404 not found 
+
+
+
+4. Replace an item:
+-----------------
+
+Method - PUT
+Target - Item
+Endpoint - PUT /users/{id}
+Request Content - full item data
+Successful response - 200 OK + new item data 
+Missing resource - 404 not found 
+
+
+
+
+5. Update an item:
+-----------------
+
+Method - PATCH
+Target - Item
+Endpoint - PATCH /users/{id}
+Request Content - partial item data
+Successful response - 200 OK + new item data 
+Missing resource - 404 not found 
+
+
+
+
+6. Delete an item:
+-----------------
+
+Method - DELETE
+Target - Item
+Endpoint - DELETE /users/{id}
+Request Content - none
+Successful response - 200 OK (sometimes 204 No Data)
+Missing resource - 404 not found 
+
+
+
+7. Typical Responses 
+-----------------
+
+i. Malformed Requests - 400 bad requests 
+
+ii. Execution Errors - 500 internal server error 
+
+iii. Invalid  Method - 405 method not allowed 
+
+iv. Missing Resources - 404 not found 
+
+
+
+
+Setting Up Data Store 
+----------------------------------
+
+BoltDB - Simple storage for Go
+
+
+Storm Library 
+
+
+go get github.com/asdine/storm
+    - Interact with BoltDB
+
+go get gopkg.in/mgo.v2/bson
+    - Handle UID for our records
+
+
+
+
+type User struct {
+	ID   bson.ObjectId `json:"id" storm:"id"`
+	Name string        `json:"name"`
+	Role string        `json:"role"`
+}
+
+
+ID   bson.ObjectId `json:"id" storm:"id"`  
+    -   We can use multiple Tags
+    -   Tag for storm was optional here but its good to explicitly mention the Primary Key of DB. 
+
