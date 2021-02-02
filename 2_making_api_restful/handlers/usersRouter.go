@@ -20,6 +20,7 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 			return
 
 		case http.MethodPost:
+			usersPostOne(w, r)
 			return
 
 		default:

@@ -195,3 +195,23 @@ Body:
 ]
 
 
+
+
+
+Different ways to update a record:
+
+1. By assignment and duplication
+
+recordItem, err := Update(data, recordItem) (*recordItem, error)
+
+
+2. By reference (using pointer)
+
+err := Update(data, *recordItem) error 
+
+    - Passing a pointer uses less memory and is faster
+
+
+
+
+    
