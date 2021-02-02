@@ -36,11 +36,11 @@ func UsersRouter(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//id := bson.ObjectIdHex(path)
+	id := bson.ObjectIdHex(path)
 
 	switch r.Method {
 	case http.MethodGet:
-
+		usersGetOne(w, r, id)
 		return
 
 	case http.MethodPut:

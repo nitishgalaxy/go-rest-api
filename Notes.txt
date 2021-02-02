@@ -214,4 +214,22 @@ err := Update(data, *recordItem) error
 
 
 
-    
+------------------------------------------------
+
+
+Retrieving an Item (GET request)
+
+Method - GET
+Target - An item 
+Request - No content 
+Result - No effect
+
+Responses:
+    i. 200 OK + existing resource 
+    ii. 404 not found
+    iii. 500 internal server error
+
+
+ 
+
+
