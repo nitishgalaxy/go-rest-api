@@ -381,3 +381,28 @@ Run tests with coverage:
 
 - Packages io, ioutil and bytes are very important to get familiar with.
 
+
+
+
+
+------------------------------------
+
+Minimum Viable Unit Test 
+
+1. Simple Tests 
+2. Doesnt cover edge cases 
+3. Focus on working, valid code and usage 
+4. Better than no tests [it is not comprehensive]
+
+
+
+
+Test Setup and Teardown
+
+func TestMain(m *testing.M) {
+	m.Run() // Execute all tests for given package
+	os.Remove(dbpath)
+}
+
+
+
