@@ -354,7 +354,30 @@ Unit Tests in Go:
     i. Implementation
 
         func TestXxxx (t *Testing.t) {
-            
+
         }
 
+
+
+Run all tests in project
+> go test ./...
+
+
+Run tests with coverage:
+> go test -coverprofile cp.out ./...
+
+
+
+
+// Adding content of request body...
+// We cannot pass string
+
+            r:   &http.Request{
+				Body: ioutil.NopCloser(bytes.NewBufferString("{}"))
+			},
+
+1. Send JSON string to byte buffer... which implements the Reader interface
+2. Convert Reader to ReadCloser by passing output of 1 to ioutil.NopCloser
+
+- Packages io, ioutil and bytes are very important to get familiar with.
 
