@@ -309,3 +309,52 @@ Responses:
 
 - HEAD saves you time and bandwidth
 
+
+
+------------------------------------------------------------------------------------
+
+TESTING 
+
+Types of Testing:
+
+1. Unit Tests 
+    i. Test smallest elements of code (usually functions)
+    ii. Useful for early bug fixing and during code maintenance 
+    iii. Can provide use cases and examples for developers.
+
+
+2. End-to-end tests:
+    i. Test the program as a whole 
+    ii. Treat the program as black box 
+    iii. Good for QA 
+
+
+
+Which Tests are good:
+
+1. Meaningful 
+    i. Test actual use cases of functions 
+    ii. Test against valid and invalid input 
+    iii. Examine output and expected state changes
+
+2. Comprehensive 
+    i. Explore as many code pathways as possible.
+
+3. Metric
+    i. Code Coverage - the percentage of code traversed during tests 
+    ii. Strive for 100%, but only 80-90% is usually attainable.
+
+
+Unit Tests in Go:
+
+    - Test code is contained in xxxx_test.go 
+    - Test code is not included in the build.
+    - Test code cannot be shared between packages.
+
+    i. Implementation
+
+        func TestXxxx (t *Testing.t) {
+            
+        }
+
+
