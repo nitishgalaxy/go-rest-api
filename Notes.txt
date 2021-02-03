@@ -406,3 +406,37 @@ func TestMain(m *testing.M) {
 
 
 
+------------------------------------
+
+Benchmarking 
+
+-   Benchmarks are specialized tests 
+
+-   Benchmarks focus on performance 
+
+-   Runs on demand 
+
+
+-   Implementation
+
+    func BenchmarkXxxx (b *testing.B){
+        // Loop: 
+        // N is automatically calculated
+        // and loop is run enough times for results to be reliable.
+        for i := 0; i < b.N; i++ {
+
+        } 
+    }
+
+
+
+> go test -bench ./...
+
+- Code in TestMain is also executed during Benchmark tests.
+
+
+
+1. Start by copyting Unit Tests and putting them in a loop.
+2. Remove logging (t.Log)
+3. Change t. to b.
+
