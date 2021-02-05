@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/asdine/storm"
+	"github.com/nitishgalaxy/go-rest-api/cache"
 	"github.com/nitishgalaxy/go-rest-api/user"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -34,6 +35,10 @@ func bodyToUser(r *http.Request, u *user.User) error {
 }
 
 func usersGetAll(w http.ResponseWriter, r *http.Request) {
+	if cache.Serve(w, r) {
+		return
+	}
+
 	users, err := user.All()
 
 	if err != nil {
@@ -69,6 +74,7 @@ func usersPostOne(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	cache.Drop("/users")
 	w.Header().Set("Location", "/users/"+u.ID.Hex())
 	w.WriteHeader(http.StatusCreated)
 }
@@ -93,6 +99,8 @@ func usersPutOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
 		return
 	}
 
+	cache.Drop("/users")
+	cache.Drop(cache.MakeResource(r))
 	postBodyResponse(w, http.StatusOK, jsonResponse{"user": u})
 }
 
@@ -128,10 +136,16 @@ func usersPatchOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
 		return
 	}
 
+	cache.Drop("/users")
+	cache.Drop(cache.MakeResource(r))
 	postBodyResponse(w, http.StatusOK, jsonResponse{"user": u})
 }
 
 func usersGetOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
+	if cache.Serve(w, r) {
+		return
+	}
+
 	u, err := user.One(id)
 
 	if err != nil {
@@ -152,7 +166,7 @@ func usersGetOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
 	postBodyResponse(w, http.StatusOK, jsonResponse{"user": u})
 }
 
-func usersDeleteOne(w http.ResponseWriter, _ *http.Request, id bson.ObjectId) {
+func usersDeleteOne(w http.ResponseWriter, r *http.Request, id bson.ObjectId) {
 	// Get existing record
 	err := user.Delete(id)
 
@@ -166,5 +180,7 @@ func usersDeleteOne(w http.ResponseWriter, _ *http.Request, id bson.ObjectId) {
 		return
 	}
 
+	cache.Drop("/users")
+	cache.Drop(cache.MakeResource(r))
 	w.WriteHeader(http.StatusOK)
 }

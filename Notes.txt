@@ -440,3 +440,23 @@ Benchmarking
 2. Remove logging (t.Log)
 3. Change t. to b.
 
+
+
+
+
+
+Caching 
+-------------------
+
+- Usually HEAD and GET requests are cached.
+
+- POST, PUT, PATCH and DELETE will invalidate cache when content changes.
+
+- Pre-emptively store data on change.
+
+- Provide an optional un-cached path for testing.
+
+- Reduce your cache footprint by time or size expiration.
+
+
+
