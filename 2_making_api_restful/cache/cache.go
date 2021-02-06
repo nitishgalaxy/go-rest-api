@@ -46,7 +46,7 @@ func get(resource string) *response {
 	return nil
 }
 
-func copyHeader(src, dst http.Header){
+func copyHeader(src, dst http.Header) {
 	for key, list := range src {
 		for _, value := range list {
 			dst.Add(key, value)
@@ -75,8 +75,6 @@ func Drop(res string) {
 	set(res, nil)
 }
 
-
-
 //Serve function returns true if a cache response was successful
 func Serve(w http.ResponseWriter, r *http.Request) bool {
 	if w == nil || r == nil {
@@ -92,11 +90,11 @@ func Serve(w http.ResponseWriter, r *http.Request) bool {
 	}
 
 	copyHeader(resp.header, w.Header())
-	w.WriteHeader(resp.code){
-		if r.Method != http.MethodHead {
-			w.Write(resp.body)
-		}
-
-		return true
+	w.WriteHeader(resp.code)
+	if r.Method != http.MethodHead {
+		w.Write(resp.body)
 	}
+
+	return true
+
 }

@@ -460,3 +460,23 @@ Caching
 
 
 
+Creating a Custom Writer
+--------------------------------------
+
+Interfaces in Go
+-------------------
+
+    -   http.ResponseWriter is an interface
+
+    -   Interfaces are defined by their member fuunctions 
+
+    -   Any type that has the same member functions implements a given interface.
+
+    -   We can create a structure that can supplant http.ResponseWriter
+
+
+
+
+
+
+
