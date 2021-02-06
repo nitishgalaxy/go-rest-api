@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -9,7 +8,7 @@ import (
 )
 
 func UsersRouter(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.URL.Path)
+	//fmt.Println(r.URL.Path)
 
 	path := strings.TrimSuffix(r.URL.Path, "/")
 

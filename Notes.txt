@@ -490,6 +490,12 @@ Testing using Mockups
 
 
 
+Bechmarking Cached Code 
+-------------------------------
+
+> go test -bench .
+
+
 
 
 
