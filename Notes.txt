@@ -499,4 +499,22 @@ Bechmarking Cached Code
 
 
 
+FRAMEWORKS and MIDDLEWARES 
+-------------------------------
+
+Echo Framework
+
+
+Gorilla  - large and not very performant 
+
+httprouter - a very fast router 
+
+Gin - quick and extensible 
+
+Echo - light and quickest out there 
+
+
+go mod init github.com/nitishgalaxy/go-rest-api-echo 
+
+go get github.com/labstack/echo
 
