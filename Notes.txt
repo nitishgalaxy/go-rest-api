@@ -477,6 +477,20 @@ Interfaces in Go
 
 
 
+Testing using Mockups 
+--------------------------
+
+1. Mimick other code 
+
+2. Only contain the code useful for tests 
+
+3. Remove lags
+
+4. Do not depend on the testing environment 
+
+
+
+
 
 
 
