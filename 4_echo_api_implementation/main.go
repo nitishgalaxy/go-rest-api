@@ -9,6 +9,7 @@ import (
 
 	"github.com/asdine/storm"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/nitishgalaxy/go-rest-api-echo/cache"
 	"github.com/nitishgalaxy/go-rest-api-echo/user"
 	"gopkg.in/mgo.v2/bson"
@@ -234,6 +235,14 @@ func usersDeleteOne(c echo.Context) error {
 func main() {
 	e := echo.New()
 
+	e.Pre(middleware.RemoveTrailingSlash())
+
+	e.Use(middleware.Recover())
+	e.Use(middleware.Secure())
+	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: "method=${method}, uri=${uri}, status=${status} latency=${latency_human}\n",
+	}))
+
 	e.GET("/", root)
 
 	// Echo allows us to group routes and save us typing
@@ -253,5 +262,5 @@ func main() {
 	uid.PATCH("", usersPatchOne)
 	uid.DELETE("", usersDeleteOne)
 
-	e.Start(":8080")
+	e.Logger.Fatal(e.Start(":8080"))
 }
