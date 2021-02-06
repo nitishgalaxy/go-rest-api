@@ -17,6 +17,33 @@ import (
 
 type jsonResponse map[string]interface{}
 
+// Custom Middleware to serve cached content
+func serveCache(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		if cache.Serve(c.Response(), c.Request()) {
+			return nil
+		}
+
+		return next(c)
+	}
+}
+
+// Store API response in cache
+func serveResponse(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		c.Response().Writer = cache.NewWriter(c.Response().Writer, c.Request())
+		return next(c)
+	}
+}
+
+// Basic auth (better than having nothing)
+func auth(username string, password string, c echo.Context) (bool, error) {
+	if username == "john" && password == "secret" {
+		return true, nil
+	}
+	return false, nil
+}
+
 func root(c echo.Context) error {
 	return c.String(http.StatusOK, "Running API v1")
 }
@@ -190,10 +217,12 @@ func usersGetOne(c echo.Context) error {
 }
 
 func usersGetAll(c echo.Context) error {
-
-	if cache.Serve(c.Response(), c.Request()) {
-		return nil
-	}
+	// Switched to middleware based caching
+	/*
+		if cache.Serve(c.Response(), c.Request()) {
+			return nil
+		}
+	*/
 
 	users, err := user.All()
 
@@ -205,7 +234,8 @@ func usersGetAll(c echo.Context) error {
 		return c.NoContent(http.StatusOK)
 	}
 
-	c.Response().Writer = cache.NewWriter(c.Response().Writer, c.Request())
+	// Switched cache write to middleware
+	// c.Response().Writer = cache.NewWriter(c.Response().Writer, c.Request())
 	return c.JSON(http.StatusOK, jsonResponse{"users": users})
 }
 
@@ -237,6 +267,7 @@ func main() {
 
 	e.Pre(middleware.RemoveTrailingSlash())
 
+	// Apply global middlewares
 	e.Use(middleware.Recover())
 	e.Use(middleware.Secure())
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
@@ -248,9 +279,9 @@ func main() {
 	// Echo allows us to group routes and save us typing
 	u := e.Group("/users")
 	u.OPTIONS("", usersOptions)
-	u.HEAD("", usersGetAll)
-	u.GET("", usersGetAll)
-	u.POST("", usersPostOne)
+	u.HEAD("", usersGetAll, serveCache)
+	u.GET("", usersGetAll, serveCache, serveResponse)
+	u.POST("", usersPostOne, middleware.BasicAuth(auth))
 
 	// To access individual items from users collection,
 	// we will create a subgroup 'uid' from Group u
